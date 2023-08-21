@@ -9,6 +9,15 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
+// MIDDLEWARE
+app.use((req, res, next) => {
+    console.log('I run for all routes!')
+    next();
+});
+
+// this allows the body of post request
+app.use(express.urlencoded({extended:false})); // for the form submit
+
 
 // ROUTES
 app.get('/fruits', (req, res) => {
@@ -19,12 +28,19 @@ app.get('/fruits', (req, res) => {
 })
 
 
+// new fruit
 app.get('/fruits/new', (req, res) => {
     res.render('fruits/New')
 });
 
-app.post('/fruits/create', (req, res) => {
+// create = post
+app.post('/fruits', (req, res, next) => {
+    res.send('Data received');
 
+    (req.body.readyToEat === 'on') ? req.body.readyToEat = true : req.body.readyToEat = false;
+
+    fruits.push(req.body);
+    res.redirect('/fruits');
 });
 
 
