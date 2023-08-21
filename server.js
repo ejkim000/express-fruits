@@ -62,7 +62,15 @@ app.get('/vegetables', (req, res) => {
 
 app.get('/vegetables/new', (req, res) => {
     // res.send(fruits);
-    res.render('vegetables/New', {});
+    res.render('vegetables/New');
+})
+
+app.post('/vegetables', (req, res) => {
+    (req.body.readyToEat === 'on') ? req.body.readyToEat = true: req.body.readyToEat = false;
+
+    vegetables.push(req.body);
+
+    res.redirect('/vegetables');
 })
 
 app.get('/vegetables/:index', (req, res) => {
