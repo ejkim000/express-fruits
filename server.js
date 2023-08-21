@@ -34,12 +34,12 @@ app.get('/fruits/new', (req, res) => {
 });
 
 // create = post
-app.post('/fruits', (req, res, next) => {
-    res.send('Data received');
-
+app.post('/fruits', (req, res) => {
+    // set readyToEat value
     (req.body.readyToEat === 'on') ? req.body.readyToEat = true : req.body.readyToEat = false;
-
+    // add new fruit to the fruits
     fruits.push(req.body);
+    // redirect to the fruits list
     res.redirect('/fruits');
 });
 
