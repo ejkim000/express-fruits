@@ -18,6 +18,16 @@ app.get('/fruits', (req, res) => {
     });
 })
 
+
+app.get('/fruits/new', (req, res) => {
+    res.render('fruits/New')
+});
+
+app.post('/fruits/create', (req, res) => {
+
+});
+
+
 app.get('/fruits/:index', (req, res) => {
     // 1st param: Filename of view
     // 2nd param: must be a object, variable available inside the jsx file
