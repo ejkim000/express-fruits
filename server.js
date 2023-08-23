@@ -59,11 +59,12 @@ app.post("/fruits", async (req, res) => {
   res.redirect("/fruits");
 });
 
-app.get("/fruits/:index", (req, res) => {
+app.get("/fruits/:id", async (req, res) => {
   // 1st param: Filename of view
   // 2nd param: must be a object, variable available inside the jsx file
+  const foundFruit = await Fruit.findById(req.params.id);
   res.render("fruits/Show", {
-    fruit: fruits[req.params.index],
+    fruit: foundFruit,
   });
 });
 
