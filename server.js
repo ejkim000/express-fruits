@@ -3,21 +3,20 @@ const express = require("express");
 const app = express();
 const PORT = 3006;
 // const fruits = require("./models/fruits");
-const Fruit = require("/models/fruit"); // model name is capitalized
+const Fruit = require("./models/fruit.js"); // model name is capitalized
 const vegetables = require("./models/vegetables");
 
 // CONNECT WITH MONGOOSE
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-//   useCreateIndex: true, // don't use this anymore
+  //   useCreateIndex: true, // don't use this anymore
 });
 
-mongoose.connection.once('open', () => {
-    console.log('connected to mongoDB');
-})
-
+mongoose.connection.once("open", () => {
+  console.log("connected to mongoDB");
+});
 
 // SETTING UP VIEW ENGINE
 app.set("views", __dirname + "/views");
@@ -34,10 +33,11 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true })); // for the form submit
 
 // ROUTES
-app.get("/fruits", (req, res) => {
-  // res.send(fruits);
+app.get("/fruits", async (req, res) => {
+  const allFruits = await Fruit.find({});
+
   res.render("fruits/Index", {
-    fruits: fruits,
+    fruits: allFruits,
   });
 });
 
@@ -47,13 +47,14 @@ app.get("/fruits/new", (req, res) => {
 });
 
 // create = post
-app.post("/fruits", (req, res) => {
+app.post("/fruits", async (req, res) => {
   // set readyToEat value
   req.body.readyToEat === "on"
     ? (req.body.readyToEat = true)
     : (req.body.readyToEat = false);
-  // add new fruit to the fruits
-  fruits.push(req.body);
+
+  const createdFruit = await Fruit.create(req.body);
+  console.log(createdFruit);
   // redirect to the fruits list
   res.redirect("/fruits");
 });
