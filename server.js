@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const PORT = 3006;
-const fruits = require("./models/fruits");
+// const fruits = require("./models/fruits");
+const Fruit = require("/models/fruit"); // model name is capitalized
 const vegetables = require("./models/vegetables");
 
 // CONNECT WITH MONGOOSE
