@@ -13,6 +13,6 @@ const vegetableSchema = new mongoose.Schema({
 });
 
 
-const Vegetable = mongoose.model('Fruit', vegetableSchema); // DB name and schema
+const Vegetable = mongoose.model('Vegetable', vegetableSchema); // DB name and schema
 
 module.exports = Vegetable;

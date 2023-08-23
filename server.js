@@ -71,10 +71,10 @@ app.get("/fruits/:id", async (req, res) => {
   });
 });
 
-app.get("/vegetables", (req, res) => {
-  // res.send(fruits);
+app.get("/vegetables", async (req, res) => {
+  const allVegetables = await Vegetable.find({});
   res.render("vegetables/Index", {
-    vegetables: vegetables,
+    vegetables: allVegetables,
   });
 });
 
@@ -83,21 +83,25 @@ app.get("/vegetables/new", (req, res) => {
   res.render("vegetables/New");
 });
 
-app.post("/vegetables", (req, res) => {
+app.post("/vegetables", async (req, res) => {
   req.body.readyToEat === "on"
     ? (req.body.readyToEat = true)
     : (req.body.readyToEat = false);
 
-  vegetables.push(req.body);
+//   vegetables.push(req.body);
+const createdVegetable = await Vegetable.create(req.body);
+  console.log(createdVegetable);
 
   res.redirect("/vegetables");
+
 });
 
-app.get("/vegetables/:index", (req, res) => {
+app.get("/vegetables/:id", async (req, res) => {
   // 1st param: Filename of view
   // 2nd param: must be a object, variable available inside the jsx file
+  const foundVegetable = await Vegetable.findById(req.params.id);
   res.render("vegetables/Show", {
-    vegetable: vegetables[req.params.index],
+    vegetable: foundVegetable,
   });
 });
 

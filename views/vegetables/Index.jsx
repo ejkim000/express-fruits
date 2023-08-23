@@ -5,10 +5,10 @@ function Index({ vegetables }) {
     <div>
       <nav><a href="/vegetables/new">Create a New Vegetable</a></nav>
       <ul>
-        {vegetables.map((vegetable, i) => {
+        {vegetables.map((vegetable) => {
           return (
-            <li key={i}>
-              <a href={`/vegetables/${i}`}>{vegetable.name}</a> is{" "}
+            <li key={vegetable.id}>
+              <a href={`/vegetables/${vegetable.id}`}>{vegetable.name}</a> is{" "}
               {vegetable.color}.
               <br />
               {vegetable.readyToEat
