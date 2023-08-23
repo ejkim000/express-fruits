@@ -4,7 +4,8 @@ const app = express();
 const PORT = 3006;
 // const fruits = require("./models/fruits");
 const Fruit = require("./models/fruit.js"); // model name is capitalized
-const vegetables = require("./models/vegetables");
+// const vegetables = require("./models/vegetables");
+const Vegetable = require("./models/vegetable.js")
 
 // CONNECT WITH MONGOOSE
 const mongoose = require("mongoose");
@@ -23,6 +24,7 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "jsx");
 app.engine("jsx", require("express-react-views").createEngine());
 
+
 // MIDDLEWARE
 app.use((req, res, next) => {
   console.log("I run for all routes!");
@@ -31,6 +33,7 @@ app.use((req, res, next) => {
 
 // this allows the body of post request
 app.use(express.urlencoded({ extended: true })); // for the form submit
+
 
 // ROUTES
 app.get("/fruits", async (req, res) => {
@@ -41,12 +44,12 @@ app.get("/fruits", async (req, res) => {
   });
 });
 
-// new fruit
+// NEW : form
 app.get("/fruits/new", (req, res) => {
   res.render("fruits/New");
 });
 
-// create = post
+// CREAT : post
 app.post("/fruits", async (req, res) => {
   // set readyToEat value
   req.body.readyToEat === "on"

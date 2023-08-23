@@ -3,7 +3,7 @@ import React from "react";
 function Index({ fruits }) {
   return (
     <div>
-      <nav><a href="/fruits/new">Create a New Fruit</a></nav>
+      <nav><a href="/fruits/new">Create New Fruit</a></nav>
       <ul>
         {fruits.map((fruit) => {
           return (
