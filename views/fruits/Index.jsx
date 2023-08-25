@@ -16,11 +16,10 @@ function Index({ fruits }) {
               {fruit.readyToEat
                 ? "It is ready to eat."
                 : "It is not ready to eat."}
-
-
               <form method="POST" action={`/fruits/${fruit.id}?_method=DELETE`}>
                 <input type="submit" value="DELETE" />
               </form>
+              <a href={`/fruits/${fruit.id}/edit`}>Edit this fruit</a>
             </li>
           );
         })}

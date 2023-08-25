@@ -70,6 +70,26 @@ app.delete("/fruits/:id", async (req, res) => {
   res.redirect("/fruits");
 });
 
+// EDIT
+app.get("/fruits/:id/edit", async (req, res) => {
+    const foundFruit = await Fruit.findById(req.params.id);
+    res.render('fruits/Edit', {
+        fruit: foundFruit
+    });
+})
+
+// UPDATE
+
+app.put("/fruits/:id", async (req,res) => {
+    req.body.readyToEat === "on"
+    ? (req.body.readyToEat = true)
+    : (req.body.readyToEat = false);
+    
+    await Fruit.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect(`/fruits/${req.params.id}`);
+});
+
+
 //============== Vegetable ===============//
 
 app.get("/vegetables", async (req, res) => {
