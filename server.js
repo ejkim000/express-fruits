@@ -4,6 +4,7 @@ const app = express();
 const PORT = 3006;
 const Fruit = require("./models/fruit.js"); // model name is capitalized
 const Vegetable = require("./models/vegetable.js");
+const methodOverride = require("method-override");
 
 // CONNECT TO MONGOOSE
 const mongoose = require("mongoose");
@@ -12,12 +13,10 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-
 // SETTING UP VIEW ENGINE
 app.set("views", __dirname + "/views");
 app.set("view engine", "jsx");
 app.engine("jsx", require("express-react-views").createEngine());
-
 
 // MIDDLEWARE
 app.use((req, res, next) => {
@@ -25,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.urlencoded({ extended: true })); // for the form submit
-
+app.use(methodOverride("_method"));
 
 // ROUTES
 // ALL
@@ -49,8 +48,8 @@ app.post("/fruits", async (req, res) => {
     : (req.body.readyToEat = false);
   // create new fruit
   const newFruit = await Fruit.create(req.body);
-    console.log(newFruit);
-    
+  console.log(newFruit);
+
   // redirect to the fruits list
   res.redirect("/fruits");
 });
@@ -65,6 +64,11 @@ app.get("/fruits/:id", async (req, res) => {
   });
 });
 
+// DELETE
+app.delete("/fruits/:id", async (req, res) => {
+  await Fruit.findByIdAndRemove(req.params.id);
+  res.redirect("/fruits");
+});
 
 //============== Vegetable ===============//
 
@@ -95,7 +99,6 @@ app.get("/vegetables/:id", async (req, res) => {
     vegetable: foundVegetable,
   });
 });
-
 
 // LISTEN
 app.listen(PORT, () => {
