@@ -16,6 +16,10 @@ function Index({ fruits }) {
               {fruit.readyToEat
                 ? "It is ready to eat."
                 : "It is not ready to eat."}
+              <br />
+              {fruit.isItGood
+                ? "It is good."
+                : "It is not good."}
               <form method="POST" action={`/fruits/${fruit.id}?_method=DELETE`}>
                 <input type="submit" value="DELETE" />
               </form>

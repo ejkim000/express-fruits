@@ -46,6 +46,10 @@ app.post("/fruits", async (req, res) => {
   req.body.readyToEat === "on"
     ? (req.body.readyToEat = true)
     : (req.body.readyToEat = false);
+  // set isItGood value
+  req.body.isItGood === "on"
+    ? (req.body.isItGood = true)
+    : (req.body.isItGood = false);
   // create new fruit
   const newFruit = await Fruit.create(req.body);
   console.log(newFruit);
@@ -84,6 +88,9 @@ app.put("/fruits/:id", async (req,res) => {
     req.body.readyToEat === "on"
     ? (req.body.readyToEat = true)
     : (req.body.readyToEat = false);
+    req.body.isItGood === "on"
+    ? (req.body.isItGood = true)
+    : (req.body.isItGood = false);
     
     await Fruit.findByIdAndUpdate(req.params.id, req.body);
     res.redirect(`/fruits/${req.params.id}`);
