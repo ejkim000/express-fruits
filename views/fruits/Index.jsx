@@ -1,9 +1,12 @@
 import React from "react";
+const Default = require("../layout/Default");
 
 function Index({ fruits }) {
   return (
-    <div>
-      <nav><a href="/fruits/new">Create New Fruit</a></nav>
+    <Default title="Fruits Index Page">
+      <nav>
+        <a href="/fruits/new">Create New Fruit</a>
+      </nav>
       <ul>
         {fruits.map((fruit) => {
           return (
@@ -17,7 +20,7 @@ function Index({ fruits }) {
           );
         })}
       </ul>
-    </div>
+    </Default>
   );
 }
 
